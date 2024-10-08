@@ -1,3 +1,15 @@
+//This code was adapted witht the help of the following references:
+//Code for rotary encoder : 
+//https://arduinogetstarted.com/tutorials/arduino-rotary-encoder#google_vignette
+
+//Code for knock sensor: 
+//https://startingelectronics.org/tutorials/arduino/modules/knock-sensor/
+
+//Code for tilt switch : 
+//https://arduinomodules.info/ky-020-tilt-switch-module/#google_vignette
+//Code for photo resistors:
+//https://lab.arts.ac.uk/books/physical-computing/page/using-arduino-leonardo-to-send-usb-midi-data
+
 #include "MIDIUSB.h"
 #include <ezButton.h>  // the library to use for SW pin //rotary encoder code
 
@@ -75,6 +87,7 @@ void loop() {
   int lightLevel3 = analogRead(photoresistorPin3); // Read the second photoresistor
   int lightLevel4 = analogRead(photoresistorPin4); // Read the second photoresistor
  // get the tilt switch state
+ // adapted from : //https://arduinomodules.info/ky-020-tilt-switch-module/#google_vignette
   tiltState = digitalRead(tiltPin);
 
   // check if tilt switch is tilted.
@@ -88,7 +101,7 @@ void loop() {
   }
 
   //knock sensor
-
+// adapted from: //https://startingelectronics.org/tutorials/arduino/modules/knock-sensor/
  // Knock sensor
   if (digitalRead(KNOCK_PIN)) { // Knock detected?
     if (!knockPlaying) {
@@ -104,7 +117,7 @@ void loop() {
   }
   octaveOffset = constrain(counter / 4, minOctave, maxOctave); // Adjust sensitivity as needed // rotary
 
-
+// photoresitor adapted code from: //https://lab.arts.ac.uk/books/physical-computing/page/using-arduino-leonardo-to-send-usb-midi-data
   // Check the first photoresistor
   if (lightLevel1 > threshold) { // If covered (low light)
         Serial.println(lightLevel1);
@@ -180,7 +193,8 @@ void loop() {
     }
   }
 
-  //rotary 
+  //rotary
+  // adapted from : //https://arduinogetstarted.com/tutorials/arduino-rotary-encoder#google_vignette
   button.loop();  // MUST call the loop() function first
 
   // read the current state of the rotary encoder's CLK pin
@@ -230,7 +244,6 @@ void loop() {
     counter = 0; // Reset rotary position
     
   }
-
   //end
  }
 
