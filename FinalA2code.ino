@@ -9,7 +9,7 @@
 //https://arduinomodules.info/ky-020-tilt-switch-module/#google_vignette
 //Code for photo resistors:
 //https://lab.arts.ac.uk/books/physical-computing/page/using-arduino-leonardo-to-send-usb-midi-data
-
+// and library  :  https://www.arduino.cc/reference/en/libraries/midiusb/ 
 #include "MIDIUSB.h"
 #include <ezButton.h>  // the library to use for SW pin //rotary encoder code
 
