@@ -1,4 +1,4 @@
-//This code was adapted witht the help of the following references:
+//This code was adapted with the help of the following references:
 //Code for rotary encoder : 
 //https://arduinogetstarted.com/tutorials/arduino-rotary-encoder#google_vignette
 
