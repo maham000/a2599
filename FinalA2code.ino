@@ -80,7 +80,7 @@ void setup() {
 }
 
 void loop() {
-  int velocity; // Declare velocity here
+  int velocity; // Declare velocity
 
   int lightLevel1 = analogRead(photoresistorPin1); // Read the first photoresistor
   int lightLevel2 = analogRead(photoresistorPin2); // Read the second photoresistor
@@ -93,11 +93,11 @@ void loop() {
   // check if tilt switch is tilted.
   if (tiltState == HIGH) {     
     //digitalWrite(ledPin, HIGH);  
-    velocity = 100;
+    velocity = 100; // then set it to 100
   } 
   else {
     //digitalWrite(ledPin, LOW); 
-    velocity = 60;
+    velocity = 60; // else set to 60
   }
 
   //knock sensor
@@ -115,81 +115,81 @@ void loop() {
   } else {
     knockPlaying = false; // Reset flag when no knock is detected
   }
-  octaveOffset = constrain(counter / 4, minOctave, maxOctave); // Adjust sensitivity as needed // rotary
+  octaveOffset = constrain(counter / 4, minOctave, maxOctave); // decide offset and make it be between min or max for rotary
 
 // photoresitor adapted code from: //https://lab.arts.ac.uk/books/physical-computing/page/using-arduino-leonardo-to-send-usb-midi-data
   // Check the first photoresistor
-  if (lightLevel1 > threshold) { // If covered (low light)
+  if (lightLevel1 > threshold) { // If light level
         Serial.println(lightLevel1);
 
     if (!note1Playing) { // Check if the first note is not already playing
       Serial.println("Sending note on for note 1");
-      noteOn(0, 60 + octaveOffset * 12, velocity); // Channel 0, note number for first LDR (middle C)
+      noteOn(0, 60 + octaveOffset * 12, velocity); // Channel 0, note number for first LDR
       MidiUSB.flush();
       note1Playing = true; // Set flag to indicate the note is playing
        delay(1000);
     }
-  } else { // If not covered (high light)
+  } else { 
     if (note1Playing) { // Check if the note is currently playing
       Serial.println("Sending note off for note 1");
       noteOff(0, 60+ octaveOffset * 12, velocity); // Channel 0, note number for first LDR
       MidiUSB.flush();
-      note1Playing = false; // Reset flag
+      note1Playing = false; 
     }
   }
 
   //Check the second photoresistor
-  if (lightLevel2 > threshold) { // If covered (low light)
+  if (lightLevel2 > threshold) { 
     if (!note2Playing) { // Check if the second note is not already playing
       Serial.println("Sending note on for note 2");
       noteOn(0, 62+ octaveOffset * 12, velocity); // Channel 0, note number for second LDR (D)
       MidiUSB.flush();
-      note2Playing = true; // Set flag to indicate the note is playing
+      note2Playing = true;
       delay(500);
 
     }
-  } else { // If not covered (high light)
+  } else { 
     if (note2Playing) { // Check if the note is currently playing
-      Serial.println("Sending note off for note 2");
+      Serial.println("Sending note off for note 2"); // test
       noteOff(0, 62+ octaveOffset * 12, velocity); // Channel 0, note number for second LDR
       MidiUSB.flush();
-      note2Playing = false; // Reset flag
+      note2Playing = false; 
     }
   }
   // Check the third photoresistor
-  if (lightLevel3 > threshold) { // If covered (low light)
-    if (!note3Playing) { // Check if the second note is not already playing
+  if (lightLevel3 > threshold) { 
+    if (!note3Playing) { // Check if the  note is not already playing
       Serial.println("Sending note on for note 3");
       noteOn(0, 64+ octaveOffset * 12, velocity); // Channel 0, note number for second LDR (D)
       MidiUSB.flush();
-      note3Playing = true; // Set flag to indicate the note is playing
+      note3Playing = true; 
       delay(500);
 
     }
-  } else { // If not covered (high light)
+  } else { 
     if (note3Playing) { // Check if the note is currently playing
       Serial.println("Sending note off for note 3");
       noteOff(0, 64+ octaveOffset * 12, velocity); // Channel 0, note number for second LDR
       MidiUSB.flush();
-      note3Playing = false; // Reset flag
+      note3Playing = false; 
     }
   }
   // Check the fourth photoresistor
-  if (lightLevel4 > threshold) { // If covered (low light)
-    if (!note4Playing) { // Check if the second note is not already playing
+  if (lightLevel4 > threshold) { 
+    if (!note4Playing) { // Check if the  note is not already playing
       Serial.println("Sending note on for note 4");
       noteOn(0, 66+ octaveOffset * 12, velocity); // Channel 0, note number for second LDR (D)
       MidiUSB.flush();
-      note4Playing = true; // Set flag to indicate the note is playing
+      note4Playing = true; 
       delay(500);
 
     }
-  } else { // If not covered (high light)
-    if (note4Playing) { // Check if the note is currently playing
+  } else { 
+    if (note4Playing) { 
       Serial.println("Sending note off for note 4");
       noteOff(0, 66+ octaveOffset * 12, velocity); // Channel 0, note number for second LDR
       MidiUSB.flush();
-      note4Playing = false; // Reset flag
+      note4Playing = false; 
     }
   }
 
@@ -200,17 +200,14 @@ void loop() {
   // read the current state of the rotary encoder's CLK pin
   CLK_state = digitalRead(CLK_PIN);
 
-  // If the state of CLK is changed, then pulse occurred
-  // React to only the rising edge (from LOW to HIGH) to avoid double count
   if (CLK_state != prev_CLK_state && CLK_state == HIGH) {
-    // if the DT state is HIGH
-    // the encoder is rotating in counter-clockwise direction => decrease the counter
+          // the encoder is rotating in counterclockwise direction => decrease the counter
+
     if (digitalRead(DT_PIN) == HIGH) {
       counter--;
       direction = DIRECTION_CCW;
       digitalWrite(LED_PIN, LOW); // me
       
-
 
     } else {
       // the encoder is rotating in clockwise direction => increase the counter
@@ -231,7 +228,7 @@ void loop() {
       
 
     Serial.print(" | COUNTER: ");
-    Serial.println(counter);
+    Serial.println(counter); // testing
   }
 
   // save last CLK state
